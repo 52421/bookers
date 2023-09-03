@@ -1,12 +1,33 @@
-<p>Editing Book </p>
+<div class="edit-contents">
 
-<%= form_with model: @book, url: '/books', method: :post do |f| %>
-  <h4>Title</h4>
+<h1 class="edit-subject">Editing Book </h1>
+
+  <%= form_with model:@book do |f| %>
+  <% if @book.errors.any? %>
+   <div id="error_explanation">
+     <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+     <ul>
+       <% @book.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+       <% end %>
+     </ul>
+   </div>
+  <% end %>
+
+  <div class="edit-content">
+   <p class="edit-name">Title</p>
    <%= f.text_field :title %>
+  </div>
 
-  <h4>Body</h4>
+  <div class="edit-content">
+   <p class="edit-name">Body</p>
    <%= f.text_area :body %>
-  <div><%= f.submit 'Create Book' %></div>
- <%= link_to "Edit", edit_book_path(@book.id) %>
- <%= link_to "Back", books_path %>
+  </div>
+
+  <div class="update-btn"><%= f.submit 'Update Book' %></div>
+
 <% end %>
+ <p><%= link_to "Show", book_path(@book.id) %> | <%= link_to "Back", books_path %></p>
+
+</div>
